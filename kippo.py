@@ -7,12 +7,12 @@ hs = {'honeyscore':0}
 
 def cipherspecTest(host):
     sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-    sock.connect((host,22))
+    sock.connect((host,2222))
     t = paramiko.Transport(sock)
     t.start_client()
     #k = t.get_remote_server_key()
     a = t.get_security_options()
-    print t.host_key.__dict__
+    print(t.host_key.__dict__)
     #print("ATTRS OF KEY: ", t.host_key.__dict__)
     print(str(t.host_key.size))
     
@@ -26,7 +26,7 @@ def commandTest(host):
     client.load_system_host_keys()
     client.set_missing_host_key_policy(paramiko.WarningPolicy())
     try:
-        client.connect(host,22,'root','123456')
+        client.connect(host,2222,'root','123456')
     except paramiko.ssh_exception.AuthenticationException: 
         print("Authentication Failure!")
         exit()

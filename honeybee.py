@@ -1,6 +1,6 @@
-#!/usr/bin/python2
+#!/usr/bin/python3
 from multiprocessing import Process, Queue
-import nmap
+import nmap3
 import sys
 import subprocess
 import kippo
@@ -12,16 +12,16 @@ def execute_out(cmd):
         logger('Error Executing ' + cmd + ' \n' + err)
     return out
 
-def scanHost(host='127.0.0.1',ports='22,80',arguments='-sV'):
+def scanHost(host='127.0.0.1',ports='22,80,2222',arguments='-sV'):
 
     def singleScan(p,ans, ags):
         try:
             # print p
-            nm = nmap.PortScanner()
+            nm = nmap3.PortScanner()
             a = nm.scan(host,p,arguments=ags)
             ans.put(a)
             #print a
-        except nmap.PortScannerError as err:
+        except nm.PortScannerError as err:
             print("Error to connect with " + host + " for port scanning")
             print(err)
             ans.put('None')
@@ -63,13 +63,13 @@ def scanHost(host='127.0.0.1',ports='22,80',arguments='-sV'):
                 h = 0
                 if 'honeypot' in service:
                     h = h + 5
-                    print('honeyscore 5 : nmap service scan fingerprinted this honeypot ')
+                    print('honeyscore 5 : nmap3 service scan fingerprinted this honeypot ')
 
 def opscanHost(host='127.0.0.1',arguments='-O'):
     try:
-        nmop = nmap.PortScanner()
+        nmop = nmap3.PortScanner()
         return nmop.scan(host,ports=None,arguments=arguments)
-    except nmap.PortScannerError as err:
+    except nmap3.PortScannerError as err:
         print("Error to connect with " + host + " for port scanning")
         print(err)
 
