@@ -1,4 +1,4 @@
-#!/usr/bin/python2
+#!/usr/bin/python3
 import socket
 import paramiko
 import sys
@@ -31,7 +31,7 @@ def commandTest(host):
         print("Authentication Failure!")
         exit()
     try:
-        (stdin, stdout, stderr) = client.exec_command('ifconfig')
+        (stdin, stdout, stderr) = client.exec_command('echo hello.')
     except:
         hs['honeyscore']+=3
         print('honeyscore 3 : commands execution not supported by kippo')
@@ -39,7 +39,7 @@ def commandTest(host):
 # research by andrew-morris
 def andrewMorris(host):
     s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-    s.connect((host,22))
+    s.connect((host,2222))
     banner = s.recv(1024)
     s.send('\n\n\n\n\n\n\n\n')
     response = s.recv(1024)
